@@ -41,11 +41,3 @@ if st.button('Find Medicines'):
             st.write(f"{alt}: Similarity Score = {score:.2f}")
     else:
         st.write("Please enter a reason or description.")
-
-# Handle request with parameters (optional)
-if 'medicine' in st.experimental_request_state.params:
-    medicine = st.experimental_request_state.params['medicine']
-    alternatives, scores = find_alternative_medicines(medicine, df)
-    st.write(f"Recommendations for '{medicine}':")
-    for alt, score in zip(alternatives, scores):
-        st.write(f"{alt}: Similarity Score = {score:.2f}")
