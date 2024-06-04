@@ -29,14 +29,19 @@ def find_alternative_medicines(input_reason_description, df):
 # Streamlit UI
 st.title('Medicine Recommender')
 
-# Input box for user to enter reason or description
-input_reason_description = st.text_input('Enter your reason or description:')
+# Parse query parameters for deep linking
+query_params = st.experimental_get_query_params()
+if 'reason' in query_params:
+    input_reason_description = query_params['reason'][0]
+    st.text_input('Enter your reason or description:', value=input_reason_description)
+else:
+    input_reason_description = st.text_input('Enter your reason or description:')
 
 # Button to trigger recommendation
 if st.button('Find Medicines'):
     if input_reason_description:
         alternatives, scores = find_alternative_medicines(input_reason_description, df)
-        st.write(f"medicine recommendation for '{input_reason_description}':")
+        st.write(f"Medicine recommendation for '{input_reason_description}':")
         for alt, score in zip(alternatives, scores):
             st.write(f"{alt}: Similarity Score = {score:.2f}")
     else:
