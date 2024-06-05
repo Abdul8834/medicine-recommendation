@@ -44,6 +44,16 @@ else:
 if st.button('Find Medicines'):
     if input_reason_description:
         alternatives = find_alternative_medicines(input_reason_description, df)
-        st.write(json.dumps(alternatives, indent=4))
+        
+        st.subheader(f"Medicine recommendations for '{input_reason_description}':")
+        st.write("")
+
+        for medicine in alternatives:
+            st.write(f"**Medicine Name:** {medicine['Drug_Name']}")
+            st.write(f"**Reason:** {medicine['Reason']}")
+            st.write(f"**Description:** {medicine['Description']}")
+            st.write(f"**Similarity Score:** {medicine['Similarity_Score']:.2f}")
+            st.write("")
     else:
         st.write("Please enter a reason or description.")
+
